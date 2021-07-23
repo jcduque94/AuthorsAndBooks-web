@@ -1,0 +1,38 @@
+<div *ngIf="bookButtonEvent">
+    <div class="row">
+        <div class="col">
+            <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()">Exportar</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="books.length == 0">
+        <div class="col m-3 alignLoadScreen">
+            <div class="spinner-border" role="status"></div>
+        </div>
+    </div>
+    <div class="row" *ngIf="books.length > 0">
+        <div class="col m-3">
+            <table class="table table-sm table-striped table-hover ml-1">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">N° Paginas</th>
+                        <th scope="col">Extracto</th>
+                        <th scope="col">Fecha Publicación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of books">
+                        <td style="height:100px;width:10px">{{book.Id}}</td>
+                        <td style="height:100px;width:10px">{{book.Title}}</td>
+                        <td style="height:100px;width:100px">{{book.Description}}</td>
+                        <td style="height:100px;width:10px">{{book.PageCount}}</td>
+                        <td style="height:100px;width:100px">{{book.Excerpt}}</td>
+                        <td style="height:100px;width:50px">{{book.PublishDate}}</td>
+                      </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
