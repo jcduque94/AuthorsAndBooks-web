@@ -17,6 +17,6 @@ export class SharedService {
     }
 
     getBooksFilters(): Observable<any> {
-        return this.httpClient.get('http://localhost:1732/GetBooksByAuthorAndDate');
+        return this.httpClient.get('http://localhost:1732/author/GetBooksByAuthorAndDate');
     }
 }

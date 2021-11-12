@@ -9,6 +9,10 @@ import { AuthorsAndBooksComponent } from './modules/authors-and-books/authors-an
 import { AuthorsComponent } from './components/authors/authors.component';
 import { BooksComponent } from './components/books/books.component';
 import { BooksFiltersComponent } from './components/books-filters/books-filters.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { DateComponent } from './components/date/date.component';
+import { DropDownComponent } from './components/drop-down/drop-down.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +20,16 @@ import { BooksFiltersComponent } from './components/books-filters/books-filters.
     AuthorsAndBooksComponent,
     AuthorsComponent,
     BooksComponent,
-    BooksFiltersComponent
+    BooksFiltersComponent,
+    DateComponent,
+    DropDownComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    FormsModule
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/authorsAndBooks'}

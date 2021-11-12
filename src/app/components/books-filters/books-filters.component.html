@@ -1,36 +1,36 @@
 <div *ngIf="bookFiltersButtonEvent">
-    <div class="row">
-        <div class="col">
-            <br>
-            <div class="card mb-1" style="width: 100%">
-                <div class="card-header py-0 px-2">
-                    <h5 class="card-title">
-                        <span>Filtros de consulta</span>
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <label>Fecha Inicial</label>
-                        </div>
-                        <div class="col">
-                            <label>Fecha Fina</label>
-                        </div>
-                        <div class="col">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col">
+      <br>
+      <div class="card mb-1" style="width: 100%">
+        <div class="card-header py-0 px-2">
+          <h5 class="card-title">
+            <span>Filtros de consulta</span>
+          </h5>
         </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Fecha Inicial</label>
+                <date #startDate></date>
+              </div>
+              <div class="col-md-4">
+                <label>Fecha Final</label>
+                <date #endDate></date>
+              </div>
+              <div class="col-md-2">
+                  <label>Autores</label>
+                  <br>
+                  <drop-down [data]="authors" [value]="'FirstName'" (onChangeValue)="changeAuthor($event)"></drop-down>
+              </div>
+              <div class="col-md-2 positionButton">
+                <button class="m-1 btn btn-light btn-outline-primary" (click)="booksFiltersSearch()">Buscar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
