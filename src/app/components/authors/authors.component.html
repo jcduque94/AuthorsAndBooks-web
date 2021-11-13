@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="row" *ngIf="authors.length == 0">
-                <div class="col m-3 alignLoadScreen">
+                <div class="col m-3 alignFields">
                     <div class="spinner-border" role="status"></div>
                 </div>
             </div>
@@ -21,10 +21,10 @@
                     <table class="table table-sm table-striped table-hover ml-1">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Id Boock</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
+                                <th scope="col" (click)="sortByColumn('Id','number')"><em *ngIf="orderType > 0 && orderColumn == 'Id'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Id</th>
+                                <th scope="col" (click)="sortByColumn('IdBook','number')"><em *ngIf="orderType > 0 && orderColumn == 'IdBook'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Id Boock</th>
+                                <th scope="col"(click)="sortByColumn('FirstName','string')"><em *ngIf="orderType > 0 && orderColumn == 'FirstName'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Nombre</th>
+                                <th scope="col" (click)="sortByColumn('LastName','string')"><em *ngIf="orderType > 0 && orderColumn == 'LastName'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Apellido</th>
                             </tr>
                         </thead>
                         <tbody>

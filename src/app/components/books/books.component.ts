@@ -3,6 +3,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import * as XLSX from 'xlsx';
 import * as moment from 'moment';
 import { BooksModel } from 'src/app/model/books.model';
+import Utils from 'src/app/utils/utils';
 
 @Component({
   selector: 'books',
@@ -12,8 +13,13 @@ import { BooksModel } from 'src/app/model/books.model';
 export class BooksComponent implements OnInit {
   books: Array<any> = [];
   bookButtonEvent:boolean = false;
+  orderType: number = 0;
+  orderColumn: string = '';
+  utils: any;
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService) { 
+    this.utils = new Utils();
+  }
 
   ngOnInit(): void {
   }
@@ -21,13 +27,24 @@ export class BooksComponent implements OnInit {
   booksSearch() {
     if(this.books.length == 0) {
       this.sharedService.getBooks().subscribe((dataBooks: Array<BooksModel>) => {
-        this.books = dataBooks.map(book => {book.PublishDate = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book})
+        this.books = dataBooks.map(book => {book.PublishDateOrder = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book})
       });
     }
   }
 
   sincronizationWihtDB() {
     
+  }
+
+  sortByColumn(orderColumn:string, typeColumn: string) {
+    this.orderType++
+    if(this.orderType < 3) {
+      this.orderType = this.orderColumn != orderColumn ? 1 : this.orderType;
+      this.orderColumn = orderColumn;
+      this.books = this.utils.sortData(typeColumn, this.orderColumn, this.books, this.orderType);
+    }else {
+      this.orderType = 0
+    }
   }
 
   exportConsultToExcel() {

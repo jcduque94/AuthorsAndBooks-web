@@ -1,6 +1,6 @@
-<div class="row">
-    <div class="col">
-        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="background-color: #f4faff !important;">
+<div class="row" style="background-color: #f4faff !important;">
+    <div class="col-md-10">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
             <li [ngbNavItem]="1">
                 <a ngbNavLink (click)="buttonClick('Authors')">Autores</a>
             </li>
@@ -11,6 +11,10 @@
                 <a ngbNavLink (click)="buttonClick('BooksFilter')">Libros por autor</a>
             </li>
         </ul>
+    </div>
+    <div class="col-md-2 alignFields">
+        <button class="m-1 btn btn-primary" (click)="signOut()">
+            <em class="fas fa-sign-out-alt"></em> Cerarr Sesión</button>
     </div>
 </div>
 

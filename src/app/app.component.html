@@ -1,3 +1,5 @@
-
-<authors-and-books></authors-and-books>
+<div class="alignFields">
+    <login *ngIf="loginSuccess == 'false'" (loginUser)="loginUserEvent($event)"></login>
+</div>
+<authors-and-books *ngIf="loginSuccess == 'true'" (signOutSession)="signOutSessionEvent()"></authors-and-books>
 <router-outlet></router-outlet>

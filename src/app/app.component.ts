@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'authors-and-books-test';
+  title = 'Autores y Libros';
+  loginSuccess: string = 'false';
+
+  loginUserEvent(isLogin: string) {
+    this.loginSuccess = isLogin;
+  }
+
+  signOutSessionEvent() {
+    this.loginSuccess = 'false';
+  }
 }

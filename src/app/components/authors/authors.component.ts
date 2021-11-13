@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthorModel } from 'src/app/model/author.model';
 import { SharedService } from 'src/app/services/shared.service';
+import Utils from 'src/app/utils/utils';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -11,7 +12,13 @@ import * as XLSX from 'xlsx';
 export class AuthorsComponent implements OnInit {
   authors: Array<any> = [];
   authorButtonEvent: boolean = false;
-  constructor(private sharedService: SharedService) { }
+  orderType: number = 0;
+  orderColumn: string = '';
+  utils: any;
+
+  constructor(private sharedService: SharedService) { 
+    this.utils = new Utils();
+  }
 
   ngOnInit(): void {
     this.authorButtonEvent = true;
@@ -28,6 +35,17 @@ export class AuthorsComponent implements OnInit {
 
   sincronizationWihtDB() {
 
+  }
+
+  sortByColumn(orderColumn:string, typeColumn: string) {
+    this.orderType++
+    if(this.orderType < 3) {
+      this.orderType = this.orderColumn != orderColumn ? 1 : this.orderType;
+      this.orderColumn = orderColumn;
+      this.authors = this.utils.sortData(typeColumn, this.orderColumn, this.authors, this.orderType);
+    }else {
+      this.orderType = 0
+    }
   }
 
   exportConsultToExcel() {

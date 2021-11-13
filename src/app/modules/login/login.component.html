@@ -1,0 +1,38 @@
+<div class="alignCard">
+    <div class="cardMody">
+        <div class="card-header alignFields">
+            <em class="fas fa-user font-size-icons"></em>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="submit()" #formularyLogin="ngForm">
+                <!-- <label for="name"><b>Usuario</b></label> -->
+                <div class="row m-1">
+                    <div class="col">
+                        <input type="text" #username="ngModel" [(ngModel)]="login.Username" placeholder="Nombre de Usuario"
+                            name="Username" minlength="5" class="form-control" required
+                            [ngClass]="{'is-valid': !username.invalid, 'is-invalid': username.invalid}" />
+                    </div>
+                </div>
+                <div class="row m-1">
+                    <div class="col">
+                        <input type="text" #password="ngModel" [(ngModel)]="login.Password" placeholder="Contraseña"
+                            name="Password" minlength="5" class="form-control" required
+                            [ngClass]="{'is-valid': !password.invalid, 'is-invalid': password.invalid}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg alignFields p-1">
+                        <button type="submit" [disabled]="!formularyLogin.valid" class="m-1 btn btn-primary">
+                            <span *ngIf="submitSearch" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span> Iniciar Sesión</span>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="!isSuccess"class="alert alert-danger">
+                    <span>Usuario o Contraseña Invalidos.</span>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+</div>

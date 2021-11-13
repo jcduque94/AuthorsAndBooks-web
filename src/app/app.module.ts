@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DateComponent } from './components/date/date.component';
 import { DropDownComponent } from './components/drop-down/drop-down.component';
+import { LoginComponent } from './modules/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DropDownComponent } from './components/drop-down/drop-down.component';
     BooksComponent,
     BooksFiltersComponent,
     DateComponent,
-    DropDownComponent
+    DropDownComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

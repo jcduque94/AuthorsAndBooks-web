@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { AuthorsComponent } from 'src/app/components/authors/authors.component';
 import { BooksFiltersComponent } from 'src/app/components/books-filters/books-filters.component';
 import { BooksComponent } from 'src/app/components/books/books.component';
@@ -16,6 +16,8 @@ export class AuthorsAndBooksComponent implements OnInit {
 
   @ViewChild(BooksFiltersComponent, { static: false })
   public booksFilters!: BooksFiltersComponent;
+
+  @Output() signOutSession = new EventEmitter();
 
   buttonEvent: string = '';
   active: number = 1;
@@ -48,6 +50,10 @@ export class AuthorsAndBooksComponent implements OnInit {
         this.booksFilters.booksFiltersSearch();
       break;
     }
+  }
+
+  signOut() {
+    this.signOutSession.emit();
   }
 
 }
