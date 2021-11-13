@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import * as XLSX from 'xlsx';
 import * as moment from 'moment';
+import { BooksModel } from 'src/app/model/books.model';
 
 @Component({
   selector: 'books',
@@ -19,7 +20,7 @@ export class BooksComponent implements OnInit {
 
   booksSearch() {
     if(this.books.length == 0) {
-      this.sharedService.getBooks().subscribe((dataBooks: Array<any>) => {
+      this.sharedService.getBooks().subscribe((dataBooks: Array<BooksModel>) => {
         this.books = dataBooks.map(book => {book.PublishDate = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book})
       });
     }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthorModel } from 'src/app/model/author.model';
 import { SharedService } from 'src/app/services/shared.service';
 import * as XLSX from 'xlsx';
 
@@ -17,7 +18,7 @@ export class AuthorsComponent implements OnInit {
 
   authorsSearch() {
     if(this.authors.length == 0) {
-      this.sharedService.getAuthors().subscribe((dataAuthors) => {
+      this.sharedService.getAuthors().subscribe((dataAuthors: Array<AuthorModel>) => {
         this.authors = dataAuthors;
       });
     }

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from "@angular/common/http"
 import { Observable } from "rxjs";
+import { BooksFilterModel } from "../model/booksFilter.model";
 @Injectable({
     providedIn: 'root'
 })
@@ -16,7 +17,7 @@ export class SharedService {
         return this.httpClient.get('http://localhost:1732/book');
     }
 
-    getBooksFilters(): Observable<any> {
-        return this.httpClient.get('http://localhost:1732/author/GetBooksByAuthorAndDate');
+    getBooksFilters(filters: BooksFilterModel): Observable<any> {
+        return this.httpClient.post('http://localhost:1732/book/GetBooksByAuthorAndDate', filters);
     }
 }

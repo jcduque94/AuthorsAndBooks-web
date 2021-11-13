@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.alignLoadScreen {
+    text-align: center;
+}
+
+.message-error {
+    font-size: 0.8125rem;
+    color: #ff0000;
+    font-weight: 500;
+    display: block;
+}
+
+.font-size-icons {
+    font-size: 0.95rem;
+}

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import * as moment from 'moment';
-import { BooksByAuthor } from 'src/app/model/booksByAuthor';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DateComponent } from '../date/date.component';
+import { AuthorModel } from 'src/app/model/author.model';
+import { BooksFilterModel } from 'src/app/model/booksFilter.model';
+import { BooksModel } from 'src/app/model/books.model';
 
 @Component({
   selector: 'books-filters',
@@ -20,27 +21,52 @@ export class BooksFiltersComponent implements OnInit {
   books: Array<any> = [];
   bookFiltersButtonEvent:boolean = false;
   authorSelected: any;
+  authorNameSelected: string = "Seleccione autor";
+  search: boolean = false;
+  startDateMessage: boolean = false;
+  endDateMessage: boolean = false;
   constructor(private sharedService: SharedService) { 
     this.startDate = new DateComponent();
     this.endDate = new DateComponent();
   }
 
   ngOnInit(): void {
-    this.sharedService.getBooksFilters().subscribe((dataFilter: BooksByAuthor) => {
-      this.authors = dataFilter.Author;
-      this.books = dataFilter.Book.map(book => {book.PublishDate = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book})
+    this.sharedService.getAuthors().subscribe((authors: Array<AuthorModel>) => {
+      this.authors = authors;
     });
   }
 
   changeAuthor(author: any) {
     this.authorSelected = author
+    this.authorNameSelected = this.authorSelected.FirstName;
     console.log("autor", author);
   }
 
   booksFiltersSearch() {
-    console.log("fecha inicial", this.startDate.date);
-    console.log("fecha final", this.endDate.date);
-    console.log("autor", this.authorSelected);
+    if(this.startDate.date != undefined && this.endDate.date != undefined) {
+      this.search = true;
+      let booksFilters: BooksFilterModel = new BooksFilterModel();
+      booksFilters.StartDate = this.startDate.date.year + '-' + this.startDate.date.month + '-' + this.startDate.date.day;
+      booksFilters.EndDate = this.endDate.date.year + '-' + this.endDate.date.month + '-' + this.endDate.date.day;
+      booksFilters.IdBook = this.authorSelected != undefined ? this.authorSelected.IdBook.toString() : null;
+      this.sharedService.getBooksFilters(booksFilters).subscribe((books: Array<BooksModel>) => {
+        this.search = false;
+        this.books = books.map(book => {book.PublishDate = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book});
+        console.log("libros filtrados", this.books);
+      });
+    }else {
+      this.startDateMessage = this.startDate.date == undefined;
+      this.endDateMessage = this.endDate.date == undefined;
+    }
+  }
+
+  cleanFilters() {
+    this.startDate.date = undefined;
+    this.endDate.date = undefined;
+    this.authorSelected = undefined;
+    this.authorNameSelected = "Seleccione autor";
+    this.startDateMessage = false;
+    this.endDateMessage = false;
   }
 
 }
