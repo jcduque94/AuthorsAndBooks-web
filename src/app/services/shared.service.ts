@@ -11,18 +11,18 @@ export class SharedService {
     constructor(private httpClient: HttpClient) {}
 
     getAuthors(): Observable<any[]> {
-        return this.httpClient.get<any>('http://localhost:1732/author');
+        return this.httpClient.get<any>('http://localhost:1732/api/author');
     }
 
     getBooks(): Observable<any> {
-        return this.httpClient.get('http://localhost:1732/book');
+        return this.httpClient.get('http://localhost:1732/api/book');
     }
 
     getBooksFilters(filters: BooksFilterModel): Observable<any> {
-        return this.httpClient.post('http://localhost:1732/book/GetBooksByAuthorAndDate', filters);
+        return this.httpClient.post('http://localhost:1732/api/book/GetBooksByAuthorAndDate', filters);
     }
 
     authenticationUser(user: UserModel): Observable<any> {
-        return this.httpClient.post('http://localhost:1732/user/Authentication', user);
+        return this.httpClient.post('http://localhost:1732/api/user/Authentication', user);
     }
 }
