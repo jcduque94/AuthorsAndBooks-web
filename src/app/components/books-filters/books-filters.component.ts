@@ -6,6 +6,7 @@ import { AuthorModel } from 'src/app/model/author.model';
 import { BooksFilterModel } from 'src/app/model/booksFilter.model';
 import { BooksModel } from 'src/app/model/books.model';
 import * as XLSX from 'xlsx';
+import Utils from 'src/app/utils/utils';
 
 @Component({
   selector: 'books-filters',
@@ -26,9 +27,13 @@ export class BooksFiltersComponent implements OnInit {
   search: boolean = false;
   startDateMessage: boolean = false;
   endDateMessage: boolean = false;
+  utils: any;
+  orderType: number = 0;
+  orderColumn: string = '';
   constructor(private sharedService: SharedService) { 
     this.startDate = new DateComponent();
     this.endDate = new DateComponent();
+    this.utils = new Utils();
   }
 
   ngOnInit(): void {
@@ -52,12 +57,23 @@ export class BooksFiltersComponent implements OnInit {
       booksFilters.IdBook = this.authorSelected != undefined ? this.authorSelected.IdBook.toString() : null;
       this.sharedService.getBooksFilters(booksFilters).subscribe((books: Array<BooksModel>) => {
         this.search = false;
-        this.books = books.map(book => {book.PublishDate = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book});
+        this.books = books.map(book => {book.PublishDateOrder = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book});
         console.log("libros filtrados", this.books);
       });
     }else {
       this.startDateMessage = this.startDate.date == undefined;
       this.endDateMessage = this.endDate.date == undefined;
+    }
+  }
+
+  sortByColumn(orderColumn:string, typeColumn: string) {
+    this.orderType++
+    if(this.orderType < 3) {
+      this.orderType = this.orderColumn != orderColumn ? 1 : this.orderType;
+      this.orderColumn = orderColumn;
+      this.books = this.utils.sortData(typeColumn, this.orderColumn, this.books, this.orderType);
+    }else {
+      this.orderType = 0
     }
   }
 

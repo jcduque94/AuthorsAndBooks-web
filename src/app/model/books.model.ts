@@ -5,4 +5,5 @@ export class BooksModel {
     PageCount!: number;
     Excerpt!: string;
     PublishDate!: string;
+    PublishDateOrder!: string;
 }

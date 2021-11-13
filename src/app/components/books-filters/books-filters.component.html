@@ -61,12 +61,12 @@
           <table class="table table-sm table-striped table-hover ml-1">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Titulo</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">N° Paginas</th>
-                <th scope="col">Extracto</th>
-                <th scope="col">Fecha Publicación</th>
+                <th scope="col" (click)="sortByColumn('Id','number')"><em *ngIf="orderType > 0 && orderColumn == 'Id'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Id</th>
+                <th scope="col" (click)="sortByColumn('Title', 'string')"><em *ngIf="orderType > 0 && orderColumn == 'Title'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Titulo</th>
+                <th scope="col" (click)="sortByColumn('Description', 'string')"><em *ngIf="orderType > 0 && orderColumn == 'Description'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Descripcion</th>
+                <th scope="col" (click)="sortByColumn('PageCount', 'number')"><em *ngIf="orderType > 0 && orderColumn == 'PageCount'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> N° Paginas</th>
+                <th scope="col" (click)="sortByColumn('Excerpt', 'string')"><em *ngIf="orderType > 0 && orderColumn == 'Excerpt'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Extracto</th>
+                <th scope="col" (click)="sortByColumn('PublishDate', 'date')"><em *ngIf="orderType > 0 && orderColumn == 'PublishDate'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Fecha Publicación</th>
               </tr>
             </thead>
             <tbody>
@@ -76,7 +76,7 @@
                 <td style="height:100px;width:100px">{{book.Description}}</td>
                 <td style="height:100px;width:10px">{{book.PageCount}}</td>
                 <td style="height:100px;width:100px">{{book.Excerpt}}</td>
-                <td style="height:100px;width:50px">{{book.PublishDate}}</td>
+                <td style="height:100px;width:50px">{{book.PublishDateOrder}}</td>
               </tr>
             </tbody>
           </table>
