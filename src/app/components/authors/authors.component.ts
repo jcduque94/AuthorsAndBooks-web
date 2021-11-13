@@ -14,6 +14,8 @@ export class AuthorsComponent implements OnInit {
   constructor(private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this.authorButtonEvent = true;
+    this.authorsSearch();
   }
 
   authorsSearch() {
@@ -22,6 +24,10 @@ export class AuthorsComponent implements OnInit {
         this.authors = dataAuthors;
       });
     }
+  }
+
+  sincronizationWihtDB() {
+
   }
 
   exportConsultToExcel() {

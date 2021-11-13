@@ -18,6 +18,7 @@ export class AuthorsAndBooksComponent implements OnInit {
   public booksFilters!: BooksFiltersComponent;
 
   buttonEvent: string = '';
+  active: number = 1;
   constructor() { }
 
   ngOnInit(): void {

@@ -26,6 +26,10 @@ export class BooksComponent implements OnInit {
     }
   }
 
+  sincronizationWihtDB() {
+    
+  }
+
   exportConsultToExcel() {
     this.getDataToExcelExport(this.books)
       .then((dataExportObject: any) => {
