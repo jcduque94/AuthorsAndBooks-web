@@ -3,12 +3,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col alignButtons">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button class="m-1 btn btn-light btn-outline-primary" (click)="sincronizationWihtDB()">
-                            <em class="fas fa-sync"></em> Sincronizar</button> 
-                        <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()">
-                            <em class="fas fa-file-export"></em> Exportar</button>
-                    </div>
+                    <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()">
+                        <em class="fas fa-file-export"></em> Exportar</button>
                 </div>
             </div>
             <div class="row" *ngIf="books.length == 0">

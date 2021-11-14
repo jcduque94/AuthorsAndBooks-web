@@ -16,12 +16,12 @@
                   <div class="col-md-4">
                     <label>Fecha Inicial</label>
                     <date #startDate></date>
-                    <span class="m-1 message-error" *ngIf="startDateMessage && startDate.date == undefined">La Fecha de inicio es obligatoria.</span>
+                    <span class="m-1 message-error" *ngIf="startDateMessage !=''">{{startDateMessage}}</span>
                   </div>
                   <div class="col-md-4">
                     <label>Fecha Final</label>
                     <date #endDate></date>
-                    <span class="m-1 message-error" *ngIf="endDateMessage && this.endDate.date == undefined">La Fecha fin es obligatoria.</span>
+                    <span class="m-1 message-error" *ngIf="endDateMessage != ''">{{endDateMessage}}</span>
                   </div>
                   <div class="col-sm-2">
                     <label>Autores</label>
@@ -52,7 +52,7 @@
       </div>
       <div class="row">
         <div class="col alignButtons">
-          <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()">
+          <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()" [disabled]="books.length == 0">
             <em class="fas fa-file-export"></em> Exportar</button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <div class="row" style="background-color: #f4faff !important;">
-    <div class="col-md-10">
+    <div class="col-md-9">
         <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
             <li [ngbNavItem]="1">
                 <a ngbNavLink (click)="buttonClick('Authors')">Autores</a>
@@ -12,12 +12,17 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-2 alignFields">
-        <button class="m-1 btn btn-primary" (click)="signOut()">
-            <em class="fas fa-sign-out-alt"></em> Cerarr Sesión</button>
+    <div class="col-md-3 alignFields">
+        <div class="btn-group" role="group" aria-label="Controles">
+            <button class="m-1 btn btn-light btn-outline-primary" (click)="synchronizationDB()">
+                <em [ngClass]="isSynchronization ? 'spinner-border spinner-border-sm' : 'fas fa-sync'"></em> Sincronizar</button> 
+            <button class="m-1 btn btn-primary" (click)="signOut()">
+                <em class="fas fa-sign-out-alt"></em> Cerarr Sesión</button>
+        </div>
     </div>
 </div>
 
 <authors></authors>
 <books></books>
 <books-filters></books-filters>
+<modal #modalSusccess></modal>

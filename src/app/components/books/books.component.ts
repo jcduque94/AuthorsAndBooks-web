@@ -16,6 +16,7 @@ export class BooksComponent implements OnInit {
   orderType: number = 0;
   orderColumn: string = '';
   utils: any;
+  isSynchronization: boolean = false;
 
   constructor(private sharedService: SharedService) { 
     this.utils = new Utils();
@@ -25,15 +26,12 @@ export class BooksComponent implements OnInit {
   }
 
   booksSearch() {
-    if(this.books.length == 0) {
+    if(this.books.length == 0 || this.isSynchronization) {
       this.sharedService.getBooks().subscribe((dataBooks: Array<BooksModel>) => {
-        this.books = dataBooks.map(book => {book.PublishDateOrder = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book})
+        this.books = dataBooks.map(book => {book.PublishDateOrder = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book});
+        this.isSynchronization = false;
       });
     }
-  }
-
-  sincronizationWihtDB() {
-    
   }
 
   sortByColumn(orderColumn:string, typeColumn: string) {

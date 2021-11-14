@@ -25,4 +25,8 @@ export class SharedService {
     authenticationUser(user: UserModel): Observable<any> {
         return this.httpClient.post('http://localhost:1732/api/user/Authentication', user);
     }
+
+    synchronization(): Observable<any> {
+        return this.httpClient.get('http://localhost:1732/api/synchronization')
+    }
 }

@@ -15,6 +15,7 @@ export class AuthorsComponent implements OnInit {
   orderType: number = 0;
   orderColumn: string = '';
   utils: any;
+  isSynchronization: boolean = false;
 
   constructor(private sharedService: SharedService) { 
     this.utils = new Utils();
@@ -26,15 +27,12 @@ export class AuthorsComponent implements OnInit {
   }
 
   authorsSearch() {
-    if(this.authors.length == 0) {
+    if(this.authors.length == 0 || this.isSynchronization) {
       this.sharedService.getAuthors().subscribe((dataAuthors: Array<AuthorModel>) => {
         this.authors = dataAuthors;
+        this.isSynchronization = false;
       });
     }
-  }
-
-  sincronizationWihtDB() {
-
   }
 
   sortByColumn(orderColumn:string, typeColumn: string) {

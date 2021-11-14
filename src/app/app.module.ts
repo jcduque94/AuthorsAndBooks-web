@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { DateComponent } from './components/date/date.component';
 import { DropDownComponent } from './components/drop-down/drop-down.component';
 import { LoginComponent } from './modules/login/login.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoginComponent } from './modules/login/login.component';
     BooksFiltersComponent,
     DateComponent,
     DropDownComponent,
-    LoginComponent
+    LoginComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

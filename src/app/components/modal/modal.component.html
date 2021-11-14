@@ -1,0 +1,15 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header-modify">
+        <h4 class="modal-title" id="modal-basic-title"></h4>
+        <span aria-hidden="true" type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <em class="far fa-times-circle" style="font-size: 1.6rem;"></em>
+        </span>
+    </div>
+    <div class="modal-body">
+        <div class="success-message">
+            <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+            <h1>Sincronización Exitosa!</h1>
+            <p>Los autores y libros han sido sincronizados con exito.</p>
+        </div>
+    </div>
+</ng-template>
