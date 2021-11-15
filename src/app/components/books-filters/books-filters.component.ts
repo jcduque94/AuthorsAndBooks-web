@@ -30,6 +30,7 @@ export class BooksFiltersComponent implements OnInit {
   utils: any;
   orderType: number = 0;
   orderColumn: string = '';
+  spinnerShow: boolean = false;
   constructor(private sharedService: SharedService) { 
     this.startDate = new DateComponent();
     this.endDate = new DateComponent();
@@ -49,35 +50,41 @@ export class BooksFiltersComponent implements OnInit {
   }
 
   validateFilters() {
-    if(this.startDate.date != undefined && this.endDate.date != undefined) {
-      let startDate = this.startDate.date.year != undefined && this.startDate.date.month && this.startDate.date.day;
-      let endDate = this.endDate.date.year != undefined && this.endDate.date.month != undefined && this.endDate.date.day;
-      if(!startDate) {this.startDateMessage = 'La Fecha de inicio no puede estar vacía ni incompleta.'}
-      if(!endDate) {this.endDateMessage = 'La Fecha fin no puede estar vacía ni incompleta.'}
-      if(startDate && endDate) {
-        let startDateCompare = moment(new Date(this.startDate.date.year + '-' + this.startDate.date.month + '-' + this.startDate.date.day)).format('MM-DD-YYYY');
-        let endDateCompare = moment(new Date(this.endDate.date.year + '-' + this.endDate.date.month + '-' + this.endDate.date.day)).format('MM-DD-YYYY');
-        this.startDateMessage = startDateCompare > endDateCompare ? 'La Fecha de inicio debe ser menor que la Fecha fin.' : '';
-        this.endDateMessage = '';
+      if(this.startDate.date != undefined && this.endDate.date != undefined) {
+        let startDate = this.startDate.date.year != undefined && this.startDate.date.month && this.startDate.date.day;
+        let endDate = this.endDate.date.year != undefined && this.endDate.date.month != undefined && this.endDate.date.day;
+        if(!startDate) {this.startDateMessage = 'La Fecha de inicio no puede estar vacía ni incompleta.'}
+        if(!endDate) {this.endDateMessage = 'La Fecha fin no puede estar vacía ni incompleta.'}
+        if(startDate && endDate) {
+          let startDateCompare = moment(new Date(this.startDate.date.year + '-' + this.startDate.date.month + '-' + this.startDate.date.day)).format('MM-DD-YYYY');
+          let endDateCompare = moment(new Date(this.endDate.date.year + '-' + this.endDate.date.month + '-' + this.endDate.date.day)).format('MM-DD-YYYY');
+          this.startDateMessage = startDateCompare > endDateCompare ? 'La Fecha de inicio debe ser menor que la Fecha fin.' : '';
+          this.endDateMessage = '';
+        }
+      }else {
+        this.startDateMessage = this.startDate.date == undefined ? 'La Fecha de inicio es obligatioria.' : '';
+        this.endDateMessage = this.endDate.date == undefined ? 'La Fecha fin es obligatioria.' : '';
+        return false
       }
-    }else {
-      return false
-    }
     return this.startDateMessage == '' && this.endDateMessage == '';
   }
 
   booksFiltersSearch() {
-    if(this.validateFilters() && this.startDate.date != undefined && this.endDate.date != undefined) {
-      this.search = true;
-      let booksFilters: BooksFilterModel = new BooksFilterModel();
-      booksFilters.StartDate = this.startDate.date.year + '-' + this.startDate.date.month + '-' + this.startDate.date.day;
-      booksFilters.EndDate = this.endDate.date.year + '-' + this.endDate.date.month + '-' + this.endDate.date.day;
-      booksFilters.IdBook = this.authorSelected != undefined ? this.authorSelected.IdBook.toString() : null;
-      this.sharedService.getBooksFilters(booksFilters).subscribe((books: Array<BooksModel>) => {
-        this.search = false;
-        this.books = books.map(book => {book.PublishDateOrder = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book});
-        console.log("libros filtrados", this.books);
-      });
+    if(this.startDate != undefined && this.endDate != undefined) {
+      if(this.validateFilters() && this.startDate.date != undefined && this.endDate.date != undefined) {
+        this.search = true;
+        this.spinnerShow = true;
+        let booksFilters: BooksFilterModel = new BooksFilterModel();
+        booksFilters.StartDate = this.startDate.date.year + '-' + this.startDate.date.month + '-' + this.startDate.date.day;
+        booksFilters.EndDate = this.endDate.date.year + '-' + this.endDate.date.month + '-' + this.endDate.date.day;
+        booksFilters.IdBook = this.authorSelected != undefined ? this.authorSelected.IdBook.toString() : null;
+        this.sharedService.getBooksFilters(booksFilters).subscribe((books: Array<BooksModel>) => {
+          this.search = false;
+          this.spinnerShow = false;
+          this.books = books.map(book => {book.PublishDateOrder = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book});
+          console.log("libros filtrados", this.books);
+        });
+      }
     }
   }
 

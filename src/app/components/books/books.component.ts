@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import * as XLSX from 'xlsx';
 import * as moment from 'moment';
@@ -17,6 +17,7 @@ export class BooksComponent implements OnInit {
   orderColumn: string = '';
   utils: any;
   isSynchronization: boolean = false;
+  spinnerShow: boolean = false;
 
   constructor(private sharedService: SharedService) { 
     this.utils = new Utils();
@@ -27,9 +28,11 @@ export class BooksComponent implements OnInit {
 
   booksSearch() {
     if(this.books.length == 0 || this.isSynchronization) {
+      this.spinnerShow = true;
       this.sharedService.getBooks().subscribe((dataBooks: Array<BooksModel>) => {
         this.books = dataBooks.map(book => {book.PublishDateOrder = moment(book.PublishDate).format('DD/MM/YYYY HH:mm'); return book});
         this.isSynchronization = false;
+        this.spinnerShow = false;
       });
     }
   }

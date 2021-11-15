@@ -16,6 +16,7 @@ export class AuthorsComponent implements OnInit {
   orderColumn: string = '';
   utils: any;
   isSynchronization: boolean = false;
+  spinnerShow: boolean = false;
 
   constructor(private sharedService: SharedService) { 
     this.utils = new Utils();
@@ -28,9 +29,11 @@ export class AuthorsComponent implements OnInit {
 
   authorsSearch() {
     if(this.authors.length == 0 || this.isSynchronization) {
+      this.spinnerShow = true;
       this.sharedService.getAuthors().subscribe((dataAuthors: Array<AuthorModel>) => {
         this.authors = dataAuthors;
         this.isSynchronization = false;
+        this.spinnerShow = false;
       });
     }
   }

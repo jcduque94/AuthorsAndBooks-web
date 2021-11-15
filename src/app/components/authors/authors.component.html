@@ -3,14 +3,17 @@
         <div class="card-body">
             <div class="row">
                 <div class="col alignButtons">
-                    <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()">
+                    <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()" [disabled]="authors.length == 0">
                         <em class="fas fa-file-export"></em> Exportar</button>
                 </div>
             </div>
-            <div class="row" *ngIf="authors.length == 0">
+            <div class="row" *ngIf="spinnerShow">
                 <div class="col m-3 alignFields">
                     <div class="spinner-border" role="status"></div>
                 </div>
+            </div>
+            <div class="row" *ngIf="!spinnerShow && authors.length == 0">
+                <span>No se encontraron registros.</span>
             </div>
             <div class="row" *ngIf="authors.length > 0">
                 <div class="col m-3">

@@ -3,26 +3,47 @@
         <div class="card-body">
             <div class="row">
                 <div class="col alignButtons">
-                    <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()">
+                    <button class="m-1 btn btn-light btn-outline-primary" (click)="exportConsultToExcel()" [disabled]="books.length == 0">
                         <em class="fas fa-file-export"></em> Exportar</button>
                 </div>
             </div>
-            <div class="row" *ngIf="books.length == 0">
+            <div class="row" *ngIf="spinnerShow">
                 <div class="col m-3 alignFields">
                     <div class="spinner-border" role="status"></div>
                 </div>
+            </div>
+            <div class="row" *ngIf="!spinnerShow && books.length == 0">
+                <span>No se encontraron registros.</span>
             </div>
             <div class="row" *ngIf="books.length > 0">
                 <div class="col m-3">
                     <table class="table table-sm table-striped table-hover ml-1">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col" (click)="sortByColumn('Id','number')"><em *ngIf="orderType > 0 && orderColumn == 'Id'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Id</th>
-                                <th scope="col" (click)="sortByColumn('Title', 'string')"><em *ngIf="orderType > 0 && orderColumn == 'Title'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Titulo</th>
-                                <th scope="col" (click)="sortByColumn('Description', 'string')"><em *ngIf="orderType > 0 && orderColumn == 'Description'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Descripcion</th>
-                                <th scope="col" (click)="sortByColumn('PageCount', 'number')"><em *ngIf="orderType > 0 && orderColumn == 'PageCount'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> N° Paginas</th>
-                                <th scope="col" (click)="sortByColumn('Excerpt', 'string')"><em *ngIf="orderType > 0 && orderColumn == 'Excerpt'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Extracto</th>
-                                <th scope="col" (click)="sortByColumn('PublishDate', 'date')"><em *ngIf="orderType > 0 && orderColumn == 'PublishDate'" [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Fecha Publicación</th>
+                                <th scope="col" (click)="sortByColumn('Id','number')"><em
+                                        *ngIf="orderType > 0 && orderColumn == 'Id'"
+                                        [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Id
+                                </th>
+                                <th scope="col" (click)="sortByColumn('Title', 'string')"><em
+                                        *ngIf="orderType > 0 && orderColumn == 'Title'"
+                                        [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em>
+                                    Titulo</th>
+                                <th scope="col" (click)="sortByColumn('Description', 'string')"><em
+                                        *ngIf="orderType > 0 && orderColumn == 'Description'"
+                                        [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em>
+                                    Descripcion</th>
+                                <th scope="col" (click)="sortByColumn('PageCount', 'number')"><em
+                                        *ngIf="orderType > 0 && orderColumn == 'PageCount'"
+                                        [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> N°
+                                    Paginas</th>
+                                <th scope="col" (click)="sortByColumn('Excerpt', 'string')"><em
+                                        *ngIf="orderType > 0 && orderColumn == 'Excerpt'"
+                                        [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em>
+                                    Extracto</th>
+                                <th scope="col" (click)="sortByColumn('PublishDate', 'date')"><em
+                                        *ngIf="orderType > 0 && orderColumn == 'PublishDate'"
+                                        [ngClass]="orderType == 1 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></em> Fecha
+                                    Publicación</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +54,7 @@
                                 <td style="height:100px;width:10px">{{book.PageCount}}</td>
                                 <td style="height:100px;width:100px">{{book.Excerpt}}</td>
                                 <td style="height:100px;width:50px">{{book.PublishDateOrder}}</td>
-                              </tr>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

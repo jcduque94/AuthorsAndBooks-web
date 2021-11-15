@@ -56,6 +56,9 @@
             <em class="fas fa-file-export"></em> Exportar</button>
         </div>
       </div>
+      <div class="row" *ngIf="!spinnerShow && books.length == 0">
+        <span>No se encontraron registros.</span>
+      </div>
       <div class="row" *ngIf="books.length > 0">
         <div class="col m-3">
           <table class="table table-sm table-striped table-hover ml-1">
